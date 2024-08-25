@@ -1,0 +1,80 @@
+# MedGuard
+
+**MedGuard** est une application innovante visant à gérer les médicaments et à identifier leurs effets secondaires. Utilisant des données provenant de sources fiables, MedGuard permet aux utilisateurs de vérifier les informations sur les médicaments, comprendre les effets indésirables potentiels, et améliorer la sécurité des traitements médicamenteux.
+
+## Fonctionnalités
+
+- **Consultation des Médicaments** : Accédez aux informations détaillées sur les médicaments.
+- **Identification des Effets Secondaires** : Découvrez les effets secondaires possibles associés à chaque médicament.
+- **Visualisation des Données** : Analysez les effets secondaires à l'aide de graphiques et de tableaux.
+- **Alertes et Notifications** : Recevez des notifications sur les nouvelles informations et mises à jour concernant les médicaments.
+
+## Installation
+
+Pour utiliser **MedGuard**, suivez les étapes ci-dessous pour configurer votre environnement de développement.
+
+### Prérequis
+
+- Python 3.8 ou supérieur
+- Pip (gestionnaire de paquets Python)
+- Base de données PostgreSQL (ou autre système de gestion de base de données de votre choix)
+
+### Cloner le Dépôt
+
+```bash
+git clone https://github.com/username/medguard.git
+cd medguard
+Installation des Dépendances
+Créez un environnement virtuel et installez les dépendances nécessaires.
+
+bash
+Copy code
+python -m venv venv
+source venv/bin/activate  # Sur Windows : venv\Scripts\activate
+pip install -r requirements.txt
+Configuration
+Base de Données : Configurez votre base de données dans le fichier config.py ou via les variables d'environnement.
+Exécution des Scripts de Migration : Appliquez les migrations pour créer les tables nécessaires.
+bash
+Copy code
+python manage.py db upgrade
+Lancer l'Application
+Démarrez le serveur de développement.
+
+bash
+Copy code
+python app.py
+Utilisation
+Accédez à l'application via http://localhost:5000.
+Utilisez les fonctionnalités disponibles pour consulter les médicaments, vérifier les effets secondaires et analyser les données.
+Contribuer
+Les contributions sont les bienvenues ! Si vous souhaitez contribuer à MedGuard, veuillez suivre ces étapes :
+
+Forkez le dépôt.
+Créez une branche pour votre fonctionnalité ou correction de bug (git checkout -b feature-branch).
+Effectuez vos modifications.
+Commitez vos changements (git commit -am 'Add new feature').
+Poussez la branche (git push origin feature-branch).
+Ouvrez une Pull Request.
+Base de Données
+Sources de Données
+FDA Adverse Event Reporting System (FAERS) : Site de la FDA
+DrugBank : Site de DrugBank
+RxNorm : Site de RxNorm
+Exemple de Code pour Charger les Données
+python
+Copy code
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Connexion à la base de données
+engine = create_engine('postgresql://username:password@host:port/database')
+
+# Charger les données dans un DataFrame
+query = "SELECT * FROM drug_adverse_events;"
+df = pd.read_sql(query, engine)
+
+# Prétraitement des données
+df = df.dropna(subset=['medication_name', 'adverse_event'])
+df['medication_name'] = df['medication_name'].str.upper()
+df['adverse_event'] = df['adverse_event'].str.lower()
